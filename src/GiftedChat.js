@@ -60,7 +60,7 @@ class GiftedChat extends React.Component {
     this.onKeyboardWillShow = this.onKeyboardWillShow.bind(this);
     this.onKeyboardWillHide = this.onKeyboardWillHide.bind(this);
     this.onKeyboardDidShow = this.onKeyboardDidShow.bind(this);
-    this.onKeyboardDidHide = this.onKeyboardDidHide.bind(this);
+    //this.onKeyboardDidHide = this.onKeyboardDidHide.bind(this);
     this.onSend = this.onSend.bind(this);
     this.getLocale = this.getLocale.bind(this);
     this.onInputSizeChanged = this.onInputSizeChanged.bind(this);
@@ -74,7 +74,7 @@ class GiftedChat extends React.Component {
       keyboardShouldPersistTaps: this.props.keyboardShouldPersistTaps,
       onKeyboardWillShow: this.onKeyboardWillShow,
       onKeyboardWillHide: this.onKeyboardWillHide,
-      onKeyboardDidShow: this.onKeyboardDidShow,
+      //onKeyboardDidShow: this.onKeyboardDidShow,
       onKeyboardDidHide: this.onKeyboardDidHide,
     };
   }
@@ -239,12 +239,12 @@ class GiftedChat extends React.Component {
     }
   }
 
-  onKeyboardDidShow(e) {
-    if (Platform.OS === 'android') {
-      this.onKeyboardWillShow(e);
-    }
-    this.setIsTypingDisabled(false);
-  }
+  // onKeyboardDidShow(e) {
+  //   if (Platform.OS === 'android') {
+  //     this.onKeyboardWillShow(e);
+  //   }
+  //   this.setIsTypingDisabled(false);
+  // }
 
   onKeyboardDidHide(e) {
     if (Platform.OS === 'android') {
