@@ -49,6 +49,7 @@ class GiftedChat extends React.Component {
     this._isFirstLayout = true;
     this._locale = 'en';
     this._messages = [];
+    this.isOpenend = false;
 
     this.state = {
       isInitialized: false, // initialization will calculate maxHeight before rendering the chat
@@ -59,7 +60,7 @@ class GiftedChat extends React.Component {
 
     this.onKeyboardWillShow = this.onKeyboardWillShow.bind(this);
     this.onKeyboardWillHide = this.onKeyboardWillHide.bind(this);
-    // this.onKeyboardDidShow = this.onKeyboardDidShow.bind(this);
+    this.onKeyboardDidShow = this.onKeyboardDidShow.bind(this);
     this.onKeyboardDidHide = this.onKeyboardDidHide.bind(this);
     this.onSend = this.onSend.bind(this);
     this.getLocale = this.getLocale.bind(this);
@@ -74,7 +75,7 @@ class GiftedChat extends React.Component {
       keyboardShouldPersistTaps: this.props.keyboardShouldPersistTaps,
       onKeyboardWillShow: this.onKeyboardWillShow,
       onKeyboardWillHide: this.onKeyboardWillHide,
-      //onKeyboardDidShow: this.onKeyboardDidShow,
+      onKeyboardDidShow: this.onKeyboardDidShow,
       onKeyboardDidHide: this.onKeyboardDidHide,
     };
   }
@@ -211,11 +212,13 @@ class GiftedChat extends React.Component {
     this.setBottomOffset(this.props.bottomOffset);
     const newMessagesContainerHeight = (this.getMaxHeight() - (this.state.composerHeight + (this.getMinInputToolbarHeight() - MIN_COMPOSER_HEIGHT))) - this.getKeyboardHeight() + this.getBottomOffset();
     if (this.props.isAnimated === true) {
+      this.isOpenend = true
       Animated.timing(this.state.messagesContainerHeight, {
         toValue: newMessagesContainerHeight,
         duration: 210,
       }).start();
     } else {
+      this.isOpenend = true
       this.setState({
         messagesContainerHeight: newMessagesContainerHeight,
       });
@@ -226,6 +229,7 @@ class GiftedChat extends React.Component {
     this.setIsTypingDisabled(true);
     this.setKeyboardHeight(0);
     this.setBottomOffset(0);
+    this.isOpenend = false
     const newMessagesContainerHeight = this.getMaxHeight() - (this.state.composerHeight + (this.getMinInputToolbarHeight() - MIN_COMPOSER_HEIGHT));
     if (this.props.isAnimated === true) {
       Animated.timing(this.state.messagesContainerHeight, {
@@ -239,12 +243,12 @@ class GiftedChat extends React.Component {
     }
   }
 
-  // onKeyboardDidShow(e) {
-  //   if (Platform.OS === 'android') {
-  //     this.onKeyboardWillShow(e);
-  //   }
-  //   this.setIsTypingDisabled(false);
-  // }
+  onKeyboardDidShow(e) {
+    if (Platform.OS === 'android' && !this.isOpenend) {
+      this.onKeyboardWillShow(e);
+    }
+    this.setIsTypingDisabled(false);
+  }
 
   onKeyboardDidHide(e) {
     if (Platform.OS === 'android') {
