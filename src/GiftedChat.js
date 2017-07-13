@@ -49,7 +49,7 @@ class GiftedChat extends React.Component {
     this._isFirstLayout = true;
     this._locale = 'en';
     this._messages = [];
-    this.isOpenend = false;
+    this.isOpened = false;
 
     this.state = {
       isInitialized: false, // initialization will calculate maxHeight before rendering the chat
@@ -207,11 +207,11 @@ class GiftedChat extends React.Component {
   }
 
   onKeyboardWillShow(e) {
+    this.isOpened = true
+    console.log('WILL OPEN')
     this.setIsTypingDisabled(true);
     this.setKeyboardHeight(e.endCoordinates ? e.endCoordinates.height : e.end.height);
     this.setBottomOffset(this.props.bottomOffset);
-    this.isOpenend = true
-    console.log('WILL OPEN')
     const newMessagesContainerHeight = (this.getMaxHeight() - (this.state.composerHeight + (this.getMinInputToolbarHeight() - MIN_COMPOSER_HEIGHT))) - this.getKeyboardHeight() + this.getBottomOffset();
     if (this.props.isAnimated === true) {
       Animated.timing(this.state.messagesContainerHeight, {
@@ -226,11 +226,11 @@ class GiftedChat extends React.Component {
   }
 
   onKeyboardWillHide() {
+    this.isOpened = false
+    console.log('WILL CLOSE')
     this.setIsTypingDisabled(true);
     this.setKeyboardHeight(0);
     this.setBottomOffset(0);
-    this.isOpenend = false
-    console.log('WILL CLOSE')
     const newMessagesContainerHeight = this.getMaxHeight() - (this.state.composerHeight + (this.getMinInputToolbarHeight() - MIN_COMPOSER_HEIGHT));
     if (this.props.isAnimated === true) {
       Animated.timing(this.state.messagesContainerHeight, {
@@ -245,11 +245,12 @@ class GiftedChat extends React.Component {
   }
 
   onKeyboardDidShow(e) {
-    if (Platform.OS === 'android' && !this.isOpenend) {
+    console.log('OPENEND?', this.isOpened)
+    if (Platform.OS === 'android' && !this.isOpened) {
       this.onKeyboardWillShow(e);
       console.log('DID SHOW ANDROID')
-      this.isOpenend = true
     }
+    this.isOpened = true
     this.setIsTypingDisabled(false);
   }
 
@@ -257,8 +258,8 @@ class GiftedChat extends React.Component {
     if (Platform.OS === 'android') {
       this.onKeyboardWillHide(e);
       console.log('DID HIDE ANDROID')
-      this.isOpenend = false
     }
+    this.isOpened = false
     this.setIsTypingDisabled(false);
   }
 
