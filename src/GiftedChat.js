@@ -209,6 +209,7 @@ class GiftedChat extends React.Component {
   onKeyboardWillShow(e) {
     this.isOpened = true
     console.log('WILL OPEN', e.endCoordinates ? e.endCoordinates.height : e.end.height)
+    console.log('DTATA', this.getMaxHeight(), this.state.composerHeight, this.getMinInputToolbarHeight(), MIN_COMPOSER_HEIGHT, this.getKeyboardHeight(), this.getBottomOffset())
     this.setIsTypingDisabled(true);
     this.setKeyboardHeight(e.endCoordinates ? e.endCoordinates.height : e.end.height);
     this.setBottomOffset(this.props.bottomOffset);
