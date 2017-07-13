@@ -208,7 +208,7 @@ class GiftedChat extends React.Component {
 
   onKeyboardWillShow(e) {
     this.isOpened = true
-    console.log('WILL OPEN')
+    console.log('WILL OPEN', e.endCoordinates ? e.endCoordinates.height : e.end.height)
     this.setIsTypingDisabled(true);
     this.setKeyboardHeight(e.endCoordinates ? e.endCoordinates.height : e.end.height);
     this.setBottomOffset(this.props.bottomOffset);
@@ -274,6 +274,7 @@ class GiftedChat extends React.Component {
 
   renderMessages() {
     const AnimatedView = this.props.isAnimated === true ? Animated.View : View;
+    console.log('NEW HEIGHT', this.state.messagesContainerHeight)
     return (
       <AnimatedView style={{
         height: this.state.messagesContainerHeight,
