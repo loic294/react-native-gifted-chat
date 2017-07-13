@@ -70,7 +70,7 @@ export default class CustomActions extends React.Component {
 
   renderNavBar() {
     return (
-      <NavBar style={{
+      <NavBar hidden style={{
         statusBar: {
           backgroundColor: '#FFF',
         },
