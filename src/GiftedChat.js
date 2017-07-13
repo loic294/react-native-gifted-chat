@@ -250,7 +250,7 @@ class GiftedChat extends React.Component {
   onKeyboardDidShow(e) {
     console.log('OPENEND?', this.isOpened)
     if (Platform.OS === 'android' && !this.isOpened) {
-      this.onKeyboardWillShow(e);
+      //this.onKeyboardWillShow(e);
       console.log('DID SHOW ANDROID')
     }
     this.isOpened = true
